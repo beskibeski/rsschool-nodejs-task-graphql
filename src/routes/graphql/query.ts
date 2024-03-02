@@ -7,7 +7,7 @@ import { UUIDType } from './types/uuid.js';
 import { prisma } from './services/prismaClient.js';
 
 const rootQuery = new GraphQLObjectType ({
-  name: 'query',
+  name: 'Query',
   fields: {
     memberTypes: {
       type: MembersType,

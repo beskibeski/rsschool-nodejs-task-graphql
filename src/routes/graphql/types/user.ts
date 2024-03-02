@@ -5,7 +5,7 @@ import { PostsType } from './post.js';
 import { prisma } from '../services/prismaClient.js';
 
 export const UserType = new GraphQLObjectType({
-  name: 'userType',
+  name: 'UserType',
   fields: () => ({
     id: { type: UUIDType },
     name: { type: GraphQLString },
@@ -18,8 +18,28 @@ export const UserType = new GraphQLObjectType({
       type: PostsType,
       resolve: async ({ id } ) => await prisma.post.findMany({ where: { authorId: id } }),
     },
-    userSubscribedTo: { type: UsersType },
-    subscribedToUser: { type: UsersType },
+    userSubscribedTo: {
+      type: UsersType,
+      resolve: async ({ id } ) => {
+        const usersSubscribedTo =
+          await prisma.subscribersOnAuthors.findMany({
+            where: { subscriberId: id },
+            select: { author: true }
+          });
+        return usersSubscribedTo.map((userSubscibedTo) => userSubscibedTo.author);
+      }
+    },
+    subscribedToUser: {
+      type: UsersType,
+      resolve: async ({ id } ) => {
+        const usersSubscribedTo =
+          await prisma.subscribersOnAuthors.findMany({
+            where: { authorId: id },
+            select: { subscriber: true }
+          });
+        return usersSubscribedTo.map((userSubscibedTo) => userSubscibedTo.subscriber);
+      }
+     },
   }),
 });
 

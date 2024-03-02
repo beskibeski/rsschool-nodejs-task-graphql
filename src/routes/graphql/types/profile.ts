@@ -5,7 +5,7 @@ import { UserType } from './user.js';
 import { prisma } from '../services/prismaClient.js';
 
 export const ProfileType = new GraphQLObjectType({
-  name: 'profileType',
+  name: 'ProfileType',
   fields: () => ({
     id: { type: UUIDType },
     isMale: { type: GraphQLBoolean },
