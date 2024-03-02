@@ -1,12 +1,12 @@
 import { GraphQLEnumType, GraphQLFloat, GraphQLInt, GraphQLList, GraphQLObjectType } from 'graphql';
 
 export const MemberTypeIdEnum = new GraphQLEnumType({
-  name: 'memberTypeId',
+  name: 'MemberTypeId',
   values: {
-    BASIC: {
+    basic: {
       value: 'basic'
     },
-    BUSINESS: {
+    business: {
       value: 'business'
     },
   },
@@ -14,11 +14,11 @@ export const MemberTypeIdEnum = new GraphQLEnumType({
 
 export const MemberType = new GraphQLObjectType({
   name: 'memberType',
-  fields: {
+  fields: () => ({
     id: { type: MemberTypeIdEnum },
     discount: { type: GraphQLFloat },
     postsLimitPerMonth: { type: GraphQLInt },
-  },
+  }),
 });
 
 export const MembersType = new GraphQLList(MemberType);
