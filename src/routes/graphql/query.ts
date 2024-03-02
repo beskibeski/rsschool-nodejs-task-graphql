@@ -28,22 +28,22 @@ const rootQuery = new GraphQLObjectType ({
     memberType: {
       type: MemberType,
       args: { id: { type: MemberTypeIdEnum } },
-      resolve: async(_, args, prisma: PrismaClient) => await prisma.memberType.findUnique({ where: { id: args.id } }),
+      resolve: async(_: unknown, args: Record<string, any>, prisma: PrismaClient) => await prisma.memberType.findUnique({ where: { id: args.id } }),
     },
     user: {
       type: UserType,
       args: { id: { type: UUIDType } },
-      resolve: async(_, args, prisma: PrismaClient) => await prisma.user.findUnique({ where: { id: args.id }}),
+      resolve: async(_: unknown, args: Record<string, any>, prisma: PrismaClient) => await prisma.user.findUnique({ where: { id: args.id }}),
     },
     post: {
       type: PostType,
       args: { id: { type: UUIDType } },
-      resolve: async(_, args, prisma: PrismaClient) => await prisma.post.findUnique({ where: { id: args.id }}),
+      resolve: async(_: unknown, args: Record<string, any>, prisma: PrismaClient) => await prisma.post.findUnique({ where: { id: args.id }}),
     },
     profile: {
       type: ProfileType,
       args: { id: { type: UUIDType } },
-      resolve: async(_, args, prisma: PrismaClient) => await prisma.profile.findUnique({ where: { id: args.id }}),
+      resolve: async(_: unknown, args: Record<string, any>, prisma: PrismaClient) => await prisma.profile.findUnique({ where: { id: args.id }}),
     },       
   },
 });
