@@ -6,7 +6,8 @@ export const PostType = new GraphQLObjectType({
   fields: () => ({
     id: { type: UUIDType },
     title: { type: GraphQLString },
-    content: { type: GraphQLString },    
+    content: { type: GraphQLString },
+    authorId: { type: UUIDType},
   }),
 });
 
