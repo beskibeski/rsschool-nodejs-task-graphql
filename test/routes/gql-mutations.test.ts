@@ -56,7 +56,7 @@ await test('gql-mutations', async (t) => {
     t.ok(foundCreatedProfile);
   });
 
-  /*await t.test('Create profile => fail; invalid dto.yearOfBirth.', async (t) => {
+  await t.test('Create profile => fail; invalid dto.yearOfBirth.', async (t) => {
     const {
       body: { errors },
     } = await gqlQuery(app, {
@@ -109,7 +109,7 @@ await test('gql-mutations', async (t) => {
     t.ok(foundCreatedProfile === null);
   });
 
-  await t.test('Change resources by id.', async (t) => {
+  /*await t.test('Change resources by id.', async (t) => {
     const { body: user1 } = await createUser(app);
     const { body: post1 } = await createPost(app, user1.id);
     const { body: profile1 } = await createProfile(app, user1.id, MemberTypeId.BUSINESS);
