@@ -1,4 +1,5 @@
-import { GraphQLBoolean, GraphQLInputObjectType, GraphQLObjectType } from "graphql";import { ChangePostInputType, CreatePostInputType, PostType } from "./types/post.js";
+import { GraphQLBoolean, GraphQLObjectType } from "graphql";
+import { ChangePostInputType, CreatePostInputType, PostType } from "./types/post.js";
 import { ChangeUserInputType, CreateUserInputType, UserType } from "./types/user.js";
 import { ChangeProfileInputType, CreateProfileInputType, ProfileType } from "./types/profile.js";
 import { prisma } from "./services/prismaClient.js";
@@ -58,6 +59,21 @@ const rootMutation = new GraphQLObjectType ({
       args: { id: { type: UUIDType }, dto: { type: ChangeProfileInputType } },
       resolve: async(_: unknown, args: Record<string, any>) => await prisma.profile.update({ where: { id: args.id}, data: args.dto }),
     },
+    subscribeTo: {
+      type: UserType,
+      args: { userId: { type: UUIDType }, authorId: { type: UUIDType} },
+      resolve: async(_: unknown, args: Record<string, any>) => await prisma.subscribersOnAuthors
+        .create({ data: { subscriberId: args.userId, authorId: args.authorId } })
+        .then(() => prisma.user.findUnique( { where: { id: args.userId }})),
+    },
+    unsubscribeFrom: {
+      type: GraphQLBoolean,
+      args: { userId: { type: UUIDType }, authorId: { type: UUIDType} },
+      resolve: async(_: unknown, args: Record<string, any>) => await prisma.subscribersOnAuthors
+        .deleteMany({ where: { subscriberId: args.userId, authorId: args.authorId } })
+        .then(() => true)
+        .catch(() => false),
+    },        
   })
 });
   

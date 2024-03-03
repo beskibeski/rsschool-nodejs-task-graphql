@@ -154,7 +154,7 @@ await test('gql-mutations', async (t) => {
     t.ok(foundChangedProfile.isMale === changedIsMale);
   });
 
-  /*await t.test('Change profile => fail; invalid dto.userId.', async (t) => {
+  await t.test('Change profile => fail; invalid dto.userId.', async (t) => {
     const {
       body: { errors },
     } = await gqlQuery(app, {
@@ -209,5 +209,5 @@ await test('gql-mutations', async (t) => {
     t.ok(!errors);
     t.ok(subscribedToUser2[0].id === user1.id);
     t.ok(subscribedToUser4.length === 0);
-  });*/
+  });
 });
